@@ -1,0 +1,125 @@
+{
+    "wraps": {
+        "sysbox-get-latest-version": {
+            "basedOn": [
+                {
+                    "name": "ubuntu-wget-install",
+                    "tag": "latest",
+                    "precreate": true
+                },
+                {
+                    "name": "ubuntu-jq-install",
+                    "tag": "latest",
+                    "precreate": true
+                }
+            ],
+            "dockerfile": "./dockers/sysbox/get-latest-version/Dockerfile",
+            "build": {
+                "context": "./dockers/sysbox/get-latest-version"
+            },
+            "run": {
+                "volumes": [
+                    {
+                        "destination": "/working-env/sysbox/configs",
+                        "source": "./dockers/sysbox/get-latest-version/configs"
+                    }
+                ],
+                "entrypoint": {
+                    "tool": "bash",
+                    "args": [
+                        "-c"
+                    ],
+                    "commands": [
+                        "/working-env/sysbox/main.sh"
+                    ]
+                }
+            },
+            "clean": [
+                "source ./env-scripts/not-by-wrap-name/install-some-util/clean.sh && main \"./dockers/sysbox\" \"get-latest-version\""
+            ]
+        },
+        "sysbox-download-without-configs": {
+            "basedOn": {
+                "name": "ubuntu-wget-install",
+                "tag": "latest",
+                "precreate": true
+            },
+            "dockerfile": "./dockers/sysbox/download/without-configs/Dockerfile",
+            "build": {
+                "context": "./dockers/sysbox/download/without-configs"
+            },
+            "run": {
+                "volumes": [
+                    {
+                        "destination": "/working-env/sysbox/download/saved",
+                        "source": "./dockers/sysbox/install/saved-versions"
+                    }
+                ],
+                "entrypoint": {
+                    "tool": "bash",
+                    "args": [
+                        "-c"
+                    ],
+                    "commands": [
+                        "(source /working-env/sysbox/download/main.sh && main)"
+                    ]
+                }
+            }
+        },
+        "sysbox-download-with-configs": {
+            "basedOn": {
+                "name": "sysbox-download-without-configs",
+                "tag": "latest",
+                "precreate": true
+            },
+            "dockerfile": "./dockers/sysbox/download/with-configs/Dockerfile",
+            "build": {
+                "context": "./dockers/sysbox/download/with-configs"
+            },
+            "clean": [
+                "source ./env-scripts/not-by-wrap-name/install-some-util/clean.sh && main \"./dockers/sysbox\" \"download\""
+            ]
+        },
+        "sysbox-install": {
+            "basedOn": {
+                "name": "docker-install",
+                "tag": "latest",
+                "precreate": true
+            },
+            "dockerfile": "./dockers/sysbox/install/Dockerfile",
+            "build": {
+                "context": "./dockers/sysbox/install",
+                "options": [
+                    "--build-arg VERSION=\"$(source ./env-scripts/not-by-wrap-name/install-some-util/read-version.sh && main \"./dockers/sysbox\")\"",
+                    "--build-arg ARCH=\"$(source ./env-scripts/not-by-wrap-name/install-some-util/read-arch.sh && main \"./dockers/sysbox\")\""
+                ],
+                "run": {
+                    "before": [
+                        "source ./env-scripts/sysbox/install/prepare-before-build.sh && main \"\" \"linux\" \"./dockers/sysbox\""
+                    ],
+                    "after": [
+                        "source \"./env-scripts/not-by-wrap-name/backups/make.sh\" && main \"$(./envs.sh get name image sysbox-install)\""
+                    ]
+                }
+            },
+            "clean": [
+                "source \"./env-scripts/not-by-wrap-name/backups/clean.sh\" && main \"$(./envs.sh get name image sysbox-install)\"",
+                "source ./env-scripts/not-by-wrap-name/install-some-util/clean.sh && main \"./dockers/sysbox\" \"install\""
+            ]
+        },
+        "use-sysbox": {
+            "build":{
+                "run": {
+                    "before": [
+                        "source ./env-scripts/not-by-wrap-name/own-machine/sysbox-install.sh && main"
+                    ]
+                }
+            },
+            "run": {
+                "options": [
+                    "--runtime=sysbox-runc"
+                ]
+            }
+        }
+    }
+}

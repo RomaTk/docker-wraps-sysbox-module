@@ -1,0 +1,7 @@
+/dockers/sysbox/get-latest-version/configs
+/dockers/sysbox/install/configs
+/dockers/sysbox/install/saved-versions
+/dockers/sysbox/download/with-configs/configs
+
+/dockers/sysbox/sysbox
+/env-scripts/sysbox/sysbox
