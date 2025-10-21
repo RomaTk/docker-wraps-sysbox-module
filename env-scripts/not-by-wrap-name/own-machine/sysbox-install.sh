@@ -4,6 +4,8 @@ function main {
     local file_name
     local containers
     local is_sysbox_installed
+    local version
+    local arch
 
     is_sysbox_installed=$(checkIfSysboxInstalled)
     [ $? -ne 0 ] && exit 1
@@ -15,15 +17,18 @@ function main {
     (./envs.sh start sysbox-install)
     [ $? -ne 0 ] && exit 1
 
-    source ./dockers/sysbox/get-latest-version/configs/latest-version.cfg
-    [ $? -ne 0 ] && exit 1
-
-    if [ -z "$LATEST_VERSION" ]; then
-        echo "Latest version is not set" >&2
+    version=$(source ./env-scripts/not-by-wrap-name/install-some-util/read-version.sh && main "./dockers/sysbox")
+    if [ $? -ne 0 ]; then
+        echo "Failed to read sysbox version" >&2
+        exit 1
+    fi
+    arch=$(source ./env-scripts/not-by-wrap-name/install-some-util/read-arch.sh && main "./dockers/sysbox")
+    if [ $? -ne 0 ]; then
+        echo "Failed to read system architecture" >&2
         exit 1
     fi
 
-    file_name="./dockers/sysbox/install/saved-versions/${LATEST_VERSION}.deb"
+    file_name="./dockers/sysbox/install/saved-versions/${arch}-${version}.deb"
     if [ ! -f "$file_name" ]; then
         echo "File $file_name not found" >&2
         exit 1
