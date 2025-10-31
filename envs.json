@@ -35,7 +35,7 @@
                 }
             },
             "clean": [
-                "source ./env-scripts/not-by-wrap-name/install-some-util/clean.sh && main \"./dockers/sysbox\" \"get-latest-version\""
+                "(source ./env-scripts/not-by-wrap-name/install-some-util/clean.sh && main \"./dockers/sysbox\" \"get-latest-version\")"
             ]
         },
         "sysbox-download-without-configs": {
@@ -77,7 +77,7 @@
                 "context": "./dockers/sysbox/download/with-configs"
             },
             "clean": [
-                "source ./env-scripts/not-by-wrap-name/install-some-util/clean.sh && main \"./dockers/sysbox\" \"download\""
+                "(source ./env-scripts/not-by-wrap-name/install-some-util/clean.sh && main \"./dockers/sysbox\" \"download\")"
             ]
         },
         "sysbox-install": {
@@ -95,23 +95,23 @@
                 ],
                 "run": {
                     "before": [
-                        "source ./env-scripts/sysbox/install/prepare-before-build.sh && main \"\" \"linux\" \"./dockers/sysbox\""
+                        "(source ./env-scripts/sysbox/install/prepare-before-build.sh && main \"\" \"linux\" \"./dockers/sysbox\")"
                     ],
                     "after": [
-                        "source \"./env-scripts/not-by-wrap-name/backups/make.sh\" && main \"$(./envs.sh get name image sysbox-install)\""
+                        "(source \"./env-scripts/not-by-wrap-name/backups/make.sh\" && main \"$(./envs.sh get name image sysbox-install)\")"
                     ]
                 }
             },
             "clean": [
-                "source \"./env-scripts/not-by-wrap-name/backups/clean.sh\" && main \"$(./envs.sh get name image sysbox-install)\"",
-                "source ./env-scripts/not-by-wrap-name/install-some-util/clean.sh && main \"./dockers/sysbox\" \"install\""
+                "(source \"./env-scripts/not-by-wrap-name/backups/clean.sh\" && main \"$(./envs.sh get name image sysbox-install)\")",
+                "(source ./env-scripts/not-by-wrap-name/install-some-util/clean.sh && main \"./dockers/sysbox\" \"install\")"
             ]
         },
         "use-sysbox": {
             "build":{
                 "run": {
                     "before": [
-                        "source ./env-scripts/not-by-wrap-name/own-machine/sysbox-install.sh && main"
+                        "(source ./env-scripts/not-by-wrap-name/own-machine/sysbox-install.sh && main)"
                     ]
                 }
             },
