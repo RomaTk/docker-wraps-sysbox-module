@@ -30,7 +30,7 @@
                         "-c"
                     ],
                     "commands": [
-                        "/working-env/sysbox/main.sh"
+                        "(source /working-env/sysbox/main.sh && main)"
                     ]
                 }
             },
