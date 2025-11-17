@@ -25,7 +25,7 @@ function getVersion {
 
     api_url="https://api.github.com/repos/nestybox/sysbox/releases/latest"
 
-    data_by_api=$(wget -qO- "$api_url")
+    data_by_api=$(wget -c -qO- "$api_url")
     [ $? -ne 0 ] && exit 1
 
     latest_version_tag=$(echo "$data_by_api" | jq -r .tag_name)
