@@ -77,7 +77,8 @@
                 "context": "./dockers/sysbox/download/with-configs"
             },
             "clean": [
-                "(source ./env-scripts/not-by-wrap-name/install-some-util/clean.sh && main \"./dockers/sysbox\" \"download\")"
+                "(source ./env-scripts/not-by-wrap-name/install-some-util/clean.sh && main \"./dockers/sysbox\" \"download\")",
+                "(source ./env-scripts/not-by-wrap-name/install-some-util/clean.sh && main \"./dockers/sysbox\" \"install\")"
             ]
         },
         "sysbox-install": {
@@ -103,8 +104,7 @@
                 }
             },
             "clean": [
-                "(source \"./env-scripts/not-by-wrap-name/backups/clean.sh\" && main \"$(./envs.sh get name image sysbox-install)\")",
-                "(source ./env-scripts/not-by-wrap-name/install-some-util/clean.sh && main \"./dockers/sysbox\" \"install\")"
+                "(source \"./env-scripts/not-by-wrap-name/backups/clean.sh\" && main \"$(./envs.sh get name image sysbox-install)\")"
             ]
         },
         "use-sysbox": {
