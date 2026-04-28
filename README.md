@@ -9,14 +9,15 @@ git submodule add https://github.com/RomaTk/docker-wraps-sysbox-module.git modul
 
 ## Wraps:
 After that you will have the following wraps available:
-- `sysbox-get-latest-version`
-- `sysbox-download`
-- `sysbox-download-with-configs`
-- `sysbox-install`
-    - This wrap will install sysbox in the docker wraps environment.
-    - As sysbox works with docker, it is based on `docker-install` wrap. So to implement it you need to have `docker-install` wrap available in your project. You can use https://github.com/RomaTk/docker-wraps-docker-module.git to have it.
-- `use-sysbox`
-    - This wrap will allow to use sysbox as runtime for docker.
+- [File - envs.json](./envs.json)
+    - `sysbox-get-latest-version`
+    - `sysbox-download-without-configs`
+    - `sysbox-download-with-configs`
+    - `sysbox-install`
+        - This wrap will install sysbox in the docker wraps environment.
+        - As sysbox works with docker, it is based on `docker-install` wrap. So to implement it you need to have `docker-install` wrap available in your project. You can use https://github.com/RomaTk/docker-wraps-docker-module.git to have it.
+    - `use-sysbox`
+        - This wrap will allow to use sysbox as runtime for docker.
 
 Also this module provides script to install sysbox on your own machine using wrap `sysbox-install`. You can find it in `env-scripts/not-by-wrap-name/own-machine/sysbox-install.sh`.
 
@@ -25,8 +26,6 @@ You can specify which version of sysbox you want to use by modifying `build.run.
 source ./env-scripts/sysbox/install/prepare-before-build.sh && main "<VERSION>" "linux" "./dockers/sysbox"
 ```
 if no version is specified, latest version will be used.
-
-For 
 
 ## Requirements
 
