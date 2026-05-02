@@ -107,7 +107,7 @@
                 "(source \"./env-scripts/not-by-wrap-name/backups/clean.sh\" && main \"$(./envs.sh get name image sysbox-install)\")"
             ]
         },
-        "use-sysbox": {
+        "sysbox-use": {
             "build":{
                 "run": {
                     "before": [
@@ -120,6 +120,22 @@
                     "--runtime=sysbox-runc"
                 ]
             }
+        },
+        "sysbox-use-test": {
+            "basedOn": [
+                {
+                    "name": "ubuntu-with-latest-packages",
+                    "tag": "latest",
+                    "precreate": true,
+                    "asAbstract": true
+                },
+                {
+                    "name": "sysbox-use",
+                    "tag": "latest",
+                    "precreate": true,
+                    "asAbstract": true
+                }
+            ]
         }
     }
 }
