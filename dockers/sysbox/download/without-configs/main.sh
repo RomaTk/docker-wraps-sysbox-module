@@ -50,8 +50,13 @@ function main {
         fi
 
         echo "Downloading Sysbox version: $version"
-        (wget -c "https://github.com/nestybox/sysbox/releases/download/v${version}/sysbox-ce_${version}.linux_${arch}.deb" -O "$file_name")
-        [ $? -ne 0 ] && exit 1
+        if [[ "$version" == "7.0.0" ]]; then
+            (wget -c "https://downloads.nestybox.com/sysbox/releases/v0.7.0/sysbox-ce_0.7.0-0.linux_amd64.deb" -O "$file_name")
+            [ $? -ne 0 ] && exit 1
+        else
+            (wget -c "https://github.com/nestybox/sysbox/releases/download/v${version}/sysbox-ce_${version}.linux_${arch}.deb" -O "$file_name")
+            [ $? -ne 0 ] && exit 1
+        fi
 
     done
 

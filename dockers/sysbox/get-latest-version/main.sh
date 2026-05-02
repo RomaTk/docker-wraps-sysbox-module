@@ -44,6 +44,11 @@ function getVersion {
         exit 1
     fi
 
+    if [[ "$(printf '%s\n' "7.0.0" "$latest_version" | sort -V | head -n1)" != "7.0.0" ]]; then
+        echo "7.0.0"
+        exit 0
+    fi
+
     echo "$latest_version"
 
     exit 0

@@ -17,6 +17,9 @@ function main() {
     ln -sf "../$current_dir/env-scripts/sysbox" "../../env-scripts/sysbox"
     [ $? -ne 0 ] && exit 1
 
+    ln -sf "../$current_dir/tests/sysbox" "../../tests/sysbox"
+    [ $? -ne 0 ] && exit 1
+
     ln -sf "../$current_dir/envs.json" "../../env-jsons/sysbox.json"
     [ $? -ne 0 ] && exit 1
 

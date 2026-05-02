@@ -27,6 +27,10 @@ source ./env-scripts/sysbox/install/prepare-before-build.sh && main "<VERSION>" 
 ```
 if no version is specified, latest version will be used.
 
+## Critical note
+
+Release `7.0.0` has some breaking changes based on how it was published. So, chaeck with future releases how they are published. It relates to the download and get latest version wraps.
+
 ## Requirements
 
 To use you need to have modules:
